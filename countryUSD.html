@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries with USD</title>
+</head>
+
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://restcountries.com/v3.1/all', true);
+        console.log(`Countries with USD:`)
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+
+                let countries = JSON.parse(xhr.responseText);
+                let usdCountries = countries.filter(country => {
+                    return country.currencies && Object.keys(country.currencies).includes('USD');
+                });
+
+                usdCountries.forEach(country => {
+                    console.log(` ~ ${country.name.common}`);
+                });
+            } else {
+                console.log('Request failed. Returned status of ' + xhr.status);
+            }
+        };
+        xhr.send();
+
+    </script>
+</body>
+
+</html>

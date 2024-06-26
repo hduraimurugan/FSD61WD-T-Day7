@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries Total Population</title>
+</head>
+<body>
+    <script>
+        let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://restcountries.com/v3.1/all', true);
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+
+                    let countries = JSON.parse(xhr.responseText);
+
+                    const totalPopulation = countries.reduce((acc, current) => acc + current.population, 0);
+                    console.log("Total population:", totalPopulation);
+                }
+                else {
+                    console.error("Error fetching data:", error);
+                }
+            }
+            xhr.send();
+
+    </script>
+</body>
+</html>
